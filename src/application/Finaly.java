@@ -9,19 +9,19 @@ import java.util.Scanner;
 public class Finaly {
 	public static void main(String[] args) {
 		File file = new File("C:\\temp\\FINALY.txt");
-		Scanner sc = null;
-		try {
-			sc = new Scanner(file);
-			while (sc.hasNextLine()) {
-				System.out.println(sc.nextLine());
-			}
-		} catch (IOException e) {
-			System.out.println("Error opening file: " + e.getMessage());
-		} finally {
-			if (sc != null) {
-				sc.close();
-			}
-			System.out.println("\nBLoco finaly executado com sucesso");
+	Scanner sc = null;
+	try {
+		sc = new Scanner(file);
+		while (sc.hasNextLine()) {
+			System.out.println(sc.nextLine());
+		}
+	} catch (IOException e) {
+		System.out.println("Error opening file: " + e.getMessage());
+	} finally {
+		if (sc != null) {
+			sc.close();
+		}
+		System.out.println("\nBLoco finaly executado com sucesso");
 		}
 	}
 }
