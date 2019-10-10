@@ -5,15 +5,16 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Reserva {
+	
 	private Integer numeroQuarto;
 	private Date checkin;
 	private Date checkout;
-	public static SimpleDateFormat sdf=new SimpleDateFormat("DD/MM/AAAA");
+	public static SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
 	
 public Reserva(Integer numeroQuarto, Date checkin, Date checkout) {
 		this.numeroQuarto = numeroQuarto;
 		this.checkin = checkin;
-		checkout = checkout;
+		this.checkout = checkout;
 	}	
 public Reserva () {
 	
@@ -39,8 +40,9 @@ public void setCheckout(Date checkout) {
 	
 public Long duracao() {
 	//converter de data para inteiro para poder fazer a conta
-	Long diferenca=(checkout.getTime()-checkin.getTime());
-	return TimeUnit.DAYS.convert(diferenca, TimeUnit.MICROSECONDS);
+	Long diferenca=checkout.getTime()- checkin.getTime();
+	//converter de milisegundos (pradrao do time Unit para dias)
+	return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 		
 }
 
