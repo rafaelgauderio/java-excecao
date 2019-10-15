@@ -7,10 +7,11 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import model.entities.Reserva;
+import modelo.exceptions.DomainException;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
@@ -43,9 +44,14 @@ public class Program {
 			System.out.println("Dados atualizados da " + reserva);
 		} catch (ParseException erroCaracterInvalido) {
 			System.out.println("Data no formato inválido");
-		} catch (IllegalArgumentException erroArgumentoInvalido) {
+		} catch (DomainException erroArgumentoInvalido) {
 			System.out.println("Erro na reserva: " + erroArgumentoInvalido.getMessage());
 
+		}
+		//não quebrar com qualquer outro tipo de erro
+		catch (RuntimeException erro){
+			System.out.println("Erro inesperado, execute o programa novamente");
+			
 		}
 
 		sc.close();

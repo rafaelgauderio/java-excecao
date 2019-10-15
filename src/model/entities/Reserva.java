@@ -3,6 +3,7 @@ package model.entities;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import modelo.exceptions.DomainException;
 
 public class Reserva {
 
@@ -11,7 +12,10 @@ public class Reserva {
 	private Date checkout;
 	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	public Reserva(Integer numeroQuarto, Date checkin, Date checkout) {
+	public Reserva(Integer numeroQuarto, Date checkin, Date checkout) throws DomainException {
+		if (!checkout.after(checkin)) {
+			throw new DomainException("A data de check-out deve ser posterior a de check-in.");
+		}
 		this.numeroQuarto = numeroQuarto;
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -53,13 +57,13 @@ public class Reserva {
 
 	}
 
-	public void atualizarDatas(Date checkin, Date checkout) {
+	public void atualizarDatas(Date checkin, Date checkout) throws DomainException {
 		Date agora = new Date();
 		if (checkin.before(agora) || checkout.before(agora)) {
-			throw new IllegalArgumentException("As datas das reservas devem ser datas futuras.");
+			throw new DomainException("As datas das reservas devem ser datas futuras.");
 		}
 		if (!checkout.after(checkin)) {
-			throw new IllegalArgumentException("A data de check-out deve ser posterior a de check-in.");
+			throw new DomainException("A data de check-out deve ser posterior a de check-in.");
 		}
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -70,7 +74,5 @@ public class Reserva {
 		return "Reserva: Número do quarto: " + numeroQuarto + ", check-in: " + sdf.format(checkin) + ", check-out: "
 				+ sdf.format(checkout) + ", " + duracao() + " dias.";
 	}
-	
+
 }
-
-
